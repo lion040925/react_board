@@ -1,12 +1,21 @@
 import React from "react";
 
-const BoardOneRow = () => {
+const BoardOneRow = props => {
   return (
     <tr>
-      <td>1</td>
-      <td>테스트제목</td>
-      <td>테스트작성자</td>
-      <td>테스트작성일</td>
+      <td>{props.board.boardSeq}</td>
+      <td>{props.board.boardTitle}</td>
+      <td>{props.board.boardAuthor}</td>
+      <td>{props.board.boardRgstDate}</td>
+      <td>
+        <input
+          type="button"
+          value="삭제"
+          onClick={() => {
+            props.onDeleteWithSeq(props.board.boardSeq);
+          }}
+        />
+      </td>
     </tr>
   );
 };
