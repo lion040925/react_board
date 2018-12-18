@@ -3,7 +3,13 @@ import BoardOneRow from "./BoardOneRow";
 
 const BoardList = props => {
   const boardRet = props.boards.map(boardOneRow => {
-    return <BoardOneRow board={boardOneRow} key={boardOneRow.boardSeq} />;
+    return (
+      <BoardOneRow
+        board={boardOneRow}
+        key={boardOneRow.boardSeq}
+        onDeleteWithSeq={props.onDeleteWithSeq}
+      />
+    );
   });
 
   return (

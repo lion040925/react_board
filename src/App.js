@@ -32,10 +32,33 @@ class App extends Component {
         }
       ]
     };
+
+    //array object  manipulation
+    let pt1 = this.state.boards;
+    console.log("pt1.length : " + pt1.length);
+
+    let pt2 = pt1.find(board => board.boardSeq === 2);
+    console.log("pt2.boardTitle : " + pt2.boardTitle);
+
+    let indexValue = pt1.findIndex(board => board.boardSeq === 2);
+    console.log("index : " + indexValue);
+
+    //배열복사 독립적인 배열로 각각
+    let pt4 = pt1.slice();
+
+    //배열에서 인덱스로 해당인덱스정보 삭제
+    let pt3 = pt4.splice(indexValue, 1);
+    console.log("pt3 삭제한정보 : " + JSON.stringify(pt3));
+    console.log("pt4 삭제후배열 : " + JSON.stringify(pt4));
+    console.log("pt1 삭제후배열 : " + JSON.stringify(pt1));
+
+    //배열에서 값추가 concat pt4에다 pt3을 추가해서 새로운pt5로 생성
+    let pt5 = pt4.concat(pt3);
+    console.log("pt5 콘캣후배열 : " + JSON.stringify(pt5));
   }
 
   insertBoard(inTitle, inAuthor) {
-    //alert("app.js : " + inTitle + inAuthor)
+    //alert("app.js insert : " + inTitle + inAuthor)
     let inSeq = this.state.boards.length + 2;
     let now = new Date();
     let inRgstDate = now.toISOString().slice(0, 10);
@@ -52,6 +75,13 @@ class App extends Component {
 
   deleteBoard(inSeq) {
     alert("app.js delete : " + inSeq);
+
+    let boards = this.state.boards;
+    let deleteIndex = boards.findIndex(board => board.boardSeq === inSeq);
+    boards.splice(deleteIndex, 1);
+    this.setState({
+      boards: boards
+    });
   }
 
   render() {
