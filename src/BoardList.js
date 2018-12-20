@@ -8,6 +8,7 @@ const BoardList = props => {
         board={boardOneRow}
         key={boardOneRow.boardSeq}
         onDeleteWithSeq={props.onDeleteWithSeq}
+        onSelectOneRow={props.onSelectOneRow}
       />
     );
   });

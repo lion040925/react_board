@@ -8,6 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       testValue: "v001",
+      selectedBoard: null,
       boards: [
         {
           boardSeq: 1,
@@ -33,15 +34,16 @@ class App extends Component {
       ]
     };
 
+    /*
     //array object  manipulation
     let pt1 = this.state.boards;
-    console.log("pt1.length : " + pt1.length);
+    //console.log("pt1.length : " + pt1.length);
 
     let pt2 = pt1.find(board => board.boardSeq === 2);
-    console.log("pt2.boardTitle : " + pt2.boardTitle);
+    //console.log("pt2.boardTitle : " + pt2.boardTitle);
 
     let indexValue = pt1.findIndex(board => board.boardSeq === 2);
-    console.log("index : " + indexValue);
+    //console.log("index : " + indexValue);
 
     //배열복사 독립적인 배열로 각각
     let pt4 = pt1.slice();
@@ -55,6 +57,7 @@ class App extends Component {
     //배열에서 값추가 concat pt4에다 pt3을 추가해서 새로운pt5로 생성
     let pt5 = pt4.concat(pt3);
     console.log("pt5 콘캣후배열 : " + JSON.stringify(pt5));
+    */
   }
 
   insertBoard(inTitle, inAuthor) {
@@ -84,6 +87,15 @@ class App extends Component {
     });
   }
 
+  async selectBoard(inBoard) {
+    alert("app.js select : " + inBoard.boardSeq); //선택된 키를 자식컴포넌트에서 가져옴
+    await this.setState({
+      selectedBoard: inBoard
+    });
+    console.log("inBoard 선택된객체 : " + JSON.stringify(inBoard));
+    console.log("state : " + JSON.stringify(this.state.selectedBoard));
+  }
+
   render() {
     return (
       <div className="App">
@@ -91,9 +103,11 @@ class App extends Component {
         <BoardList
           boards={this.state.boards}
           onDeleteWithSeq={inSeq => this.deleteBoard(inSeq)}
+          onSelectOneRow={inSeq => this.selectBoard(inSeq)}
         />
         <br />
         <BoardInputForm
+          selectedBoard={this.state.selectedBoard}
           onInsertWithTitle={(inTitle, inAuthor) =>
             this.insertBoard(inTitle, inAuthor)
           }

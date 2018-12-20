@@ -3,10 +3,22 @@ import React, { Component } from "react";
 class BoardInputForm extends Component {
   constructor(props) {
     super(props);
+    const selectedBoard = this.props.selectedBoard;
+    console.log("selectedBoard: " + selectedBoard);
     this.state = {
       inTitle: "제목을입력해주세요.",
       inAuthor: "no author"
     };
+
+    if (selectedBoard === null) {
+      console.log("if: " + selectedBoard);
+    } else {
+      console.log("else: " + selectedBoard);
+      this.setState({
+        inTitle: selectedBoard.boardTitle,
+        inAuthor: selectedBoard.boardAuthor
+      });
+    }
   }
 
   handleChange = e => {

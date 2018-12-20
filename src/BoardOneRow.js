@@ -2,7 +2,11 @@ import React from "react";
 
 const BoardOneRow = props => {
   return (
-    <tr>
+    <tr
+      onClick={() => {
+        props.onSelectOneRow(props.board);
+      }}
+    >
       <td>{props.board.boardSeq}</td>
       <td>{props.board.boardTitle}</td>
       <td>{props.board.boardAuthor}</td>
