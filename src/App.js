@@ -60,6 +60,26 @@ class App extends Component {
     */
   }
 
+  updateBoard(modTitle, modAuthor, modSeq) {
+    //alert("app.js update : " + modTitle + modAuthor + modSeq);
+    const originData = this.state.boards;
+
+    let now = new Date();
+    let modRgstDate = now.toISOString().slice(0, 10);
+    const modifiedData = {
+      boardSeq: modSeq,
+      boardTitle: modTitle,
+      boardAuthor: modAuthor,
+      boardRgstDate: modRgstDate
+    };
+
+    this.setState({
+      boards: originData.map(v =>
+        v.boardSeq === modSeq ? { ...v, ...modifiedData } : v
+      )
+    });
+  }
+
   insertBoard(inTitle, inAuthor) {
     //alert("app.js insert : " + inTitle + inAuthor)
     let inSeq = this.state.boards.length + 2;
@@ -77,7 +97,7 @@ class App extends Component {
   }
 
   deleteBoard(inSeq) {
-    alert("app.js delete : " + inSeq);
+    //alert("app.js delete : " + inSeq);
 
     let boards = this.state.boards;
     let deleteIndex = boards.findIndex(board => board.boardSeq === inSeq);
@@ -88,12 +108,10 @@ class App extends Component {
   }
 
   async selectBoard(inBoard) {
-    alert("app.js select : " + inBoard.boardSeq); //선택된 키를 자식컴포넌트에서 가져옴
+    //alert("app.js select : " + inBoard.boardSeq); //선택된 키를 자식컴포넌트에서 가져옴
     await this.setState({
       selectedBoard: inBoard
     });
-    console.log("inBoard 선택된객체 : " + JSON.stringify(inBoard));
-    console.log("state : " + JSON.stringify(this.state.selectedBoard));
   }
 
   render() {
@@ -110,6 +128,9 @@ class App extends Component {
           selectedBoard={this.state.selectedBoard}
           onInsertWithTitle={(inTitle, inAuthor) =>
             this.insertBoard(inTitle, inAuthor)
+          }
+          onUpdateWithSeq={(modTitle, modAuthor, modSeq) =>
+            this.updateBoard(modTitle, modAuthor, modSeq)
           }
         />
       </div>
